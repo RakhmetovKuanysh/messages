@@ -1,0 +1,9 @@
+Listen = "0.0.0.0:8080"
+Debug = true
+
+[Database]
+Host = "127.0.0.1"
+Port = 8010
+User = "root"
+Password = "root"
+Database = "social-network"
