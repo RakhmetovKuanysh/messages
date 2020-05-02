@@ -1,3 +1,10 @@
 Listen = "0.0.0.0:8080"
 Debug = false
 DefaultTtl = 7200
+
+[Database]
+Host = "127.0.0.1"
+Port = 3306
+User = "myuser"
+Password = "social_network"
+Database = "social_network"
