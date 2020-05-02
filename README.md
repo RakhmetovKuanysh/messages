@@ -43,15 +43,15 @@
         {
             "id": "3",
             "text": "Hello",
-            "receiverId": 1,
-            "senderId": 2,
-            "createdAt": "2020-04-12T11:15:41Z"
+            "receiver_id": 1,
+            "sender_id": 2,
+            "created_at": "2020-04-12T11:15:41Z"
         }
     ]
 }
 ```
 
-#### 2. Добавить сообщений в базу [POST]
+#### 3. Добавить сообщений в базу [POST]
 
 + URL:        `/message`
 + Method:     `POST`
