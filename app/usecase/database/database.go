@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"otus/messages/app/domain"
 	"otus/messages/app/usecase"
@@ -24,7 +23,6 @@ func (r *MessagesDatabase) GetMessages(receiverId int, senderId int) (messages [
 		OR (sender_id=? AND receiver_id=?) ORDER BY created_at`
 
 	err = db.Connection().Select(&messages, sqlStatement, receiverId, senderId, receiverId, senderId)
-	fmt.Println(err)
 
 	return
 }

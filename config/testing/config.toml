@@ -6,4 +6,4 @@ Host = "127.0.0.1"
 Port = 8010
 User = "root"
 Password = "root"
-Database = "social-network"
+Database = "messages"

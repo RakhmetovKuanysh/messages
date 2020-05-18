@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"net/http"
@@ -55,11 +54,8 @@ func CreateMessage(c *gin.Context, di di.DI) {
 	in := input.CreateMessage{}
 
 	if err := c.MustBindWith(&in, binding.Form); err != nil {
-		fmt.Println(err)
 		return
 	}
-
-	fmt.Println(in)
 
 	if in.ReceiverId == 0 || in.SenderId == 0 || in.Text == "" {
 		c.JSON(http.StatusBadRequest, app.WithError(app.PARAMETERS_REQUIRED, "Provide parameters"))
