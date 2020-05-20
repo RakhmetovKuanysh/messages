@@ -37,3 +37,9 @@ type MessagesResponse struct {
 	Response
 	Messages []domain.Message `json:"messages"` // сообщения
 }
+
+// Успешный ответ для выдачи количества непрочитанных
+type GetNbUnreadResponse struct {
+	Response
+	Cnt int `json:"cnt"`
+}

@@ -9,6 +9,7 @@ import (
 	"otus/messages/app/di"
 	"otus/messages/app/http/router"
 	"otus/messages/app/usecase/database"
+	"otus/messages/counter_api"
 	"otus/messages/db"
 )
 
@@ -52,8 +53,9 @@ func main() {
 
 // инициализация приложения
 func initDI() *di.DI {
+	counterAPI := counter_api.NewCounterAPI()
 	messagesDatabase := database.NewMessagesDatabase()
-	core := di.NewDI(messagesDatabase)
+	core := di.NewDI(messagesDatabase, counterAPI)
 
 	return &core
 }

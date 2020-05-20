@@ -8,12 +8,14 @@ import (
 // Инстанс приложения
 type DI struct {
 	MessagesDatabase usecase.MessagesDatabase
+	CounterAPI       usecase.CounterAPI
 }
 
 // Новый инстанс приложения
-func NewDI(messagesDatabase usecase.MessagesDatabase) DI {
+func NewDI(messagesDatabase usecase.MessagesDatabase, counterAPI usecase.CounterAPI) DI {
 	return DI{
 		MessagesDatabase: messagesDatabase,
+		CounterAPI:       counterAPI,
 	}
 }
 

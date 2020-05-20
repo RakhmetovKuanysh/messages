@@ -30,4 +30,5 @@ func configureRoutes(r *gin.Engine, p *di.DI) {
 	r.GET("/health", p.ProvideDependency(handlers.Health))
 	r.GET("/messages", p.ProvideDependency(handlers.GetMessages))
 	r.POST("/message", p.ProvideDependency(handlers.CreateMessage))
+	r.GET("/get-nb-unread", p.ProvideDependency(handlers.GetNbUnread))
 }

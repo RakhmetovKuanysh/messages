@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"otus/messages/app/domain"
 	"otus/messages/app/usecase"
@@ -8,7 +9,7 @@ import (
 	"time"
 )
 
-// Хранилище отчетов
+// Хранилище сообщений
 type MessagesDatabase struct {
 }
 
@@ -23,6 +24,28 @@ func (r *MessagesDatabase) GetMessages(receiverId int, senderId int) (messages [
 		OR (sender_id=? AND receiver_id=?) ORDER BY created_at`
 
 	err = db.Connection().Select(&messages, sqlStatement, receiverId, senderId, receiverId, senderId)
+
+	return
+}
+
+// Отметить как прочитанное
+func (r *MessagesDatabase) MarkAsRead(receiverId int, senderId int) (err error) {
+	sqlStatement := `UPDATE messages SET is_read=1 WHERE (receiver_id=? AND sender_id=?)
+		OR (sender_id=? AND receiver_id=?)`
+
+	_, err = db.Connection().Exec(sqlStatement, receiverId, senderId, receiverId, senderId)
+	fmt.Println(err)
+
+	return
+}
+
+// Количество непрочитанных сообщений
+func (r *MessagesDatabase) GetNbUnreadMessages(receiverId int) (cnt int, err error) {
+	sqlStatement := `SELECT COUNT(*) AS count FROM messages WHERE receiver_id=? AND is_read=0`
+
+	if err = db.Connection().Get(&cnt, sqlStatement, receiverId); err != nil {
+		return
+	}
 
 	return
 }
