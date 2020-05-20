@@ -38,6 +38,12 @@ type MessagesResponse struct {
 	Messages []domain.Message `json:"messages"` // сообщения
 }
 
+// Успешный ответ для выдачи чатов
+type ThreadsResponse struct {
+	Response
+	Threads []domain.Thread `json:"threads"` // чаты
+}
+
 // Успешный ответ для выдачи количества непрочитанных
 type GetNbUnreadResponse struct {
 	Response

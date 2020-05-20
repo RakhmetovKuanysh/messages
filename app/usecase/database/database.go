@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"otus/messages/app/domain"
 	"otus/messages/app/usecase"
@@ -30,11 +29,21 @@ func (r *MessagesDatabase) GetMessages(receiverId int, senderId int) (messages [
 
 // Отметить как прочитанное
 func (r *MessagesDatabase) MarkAsRead(receiverId int, senderId int) (err error) {
-	sqlStatement := `UPDATE messages SET is_read=1 WHERE (receiver_id=? AND sender_id=?)
-		OR (sender_id=? AND receiver_id=?)`
+	sqlStatement := `UPDATE messages SET is_read=1 WHERE (receiver_id=? AND sender_id=?)`
 
-	_, err = db.Connection().Exec(sqlStatement, receiverId, senderId, receiverId, senderId)
-	fmt.Println(err)
+	_, err = db.Connection().Exec(sqlStatement, receiverId, senderId)
+
+	return
+}
+
+// Получение чатов
+func (r *MessagesDatabase) GetThreads(userId int) (threads []domain.Thread, err error) {
+	sqlStatement := `SELECT sender_id, receiver_id FROM messages WHERE sender_id=? 
+		OR receiver_id=? GROUP BY sender_id, receiver_id`
+
+	if err = db.Connection().Select(&threads, sqlStatement, userId, userId); err != nil {
+		return
+	}
 
 	return
 }

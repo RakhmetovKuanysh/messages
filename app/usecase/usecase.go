@@ -7,6 +7,7 @@ type MessagesDatabase interface {
 	CreateMessage(receiverId int, senderId int, text string) (err error)
 	GetMessages(receiverId int, senderId int) (messages []domain.Message, err error)
 	GetNbUnreadMessages(receiverId int) (cnt int, err error)
+	GetThreads(userId int) (threads []domain.Thread, err error)
 	MarkAsRead(receiverId int, senderId int) (err error)
 }
 

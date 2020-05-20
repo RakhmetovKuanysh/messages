@@ -17,6 +17,38 @@ func Health(c *gin.Context, di di.DI) {
 	c.String(http.StatusOK, "ok")
 }
 
+// Получение всех чатов
+func GetThreads(c *gin.Context, di di.DI) {
+	in := input.GetThreads{}
+
+	if err := c.MustBindWith(&in, binding.Query); err != nil {
+		return
+	}
+
+	if in.UserId == 0 {
+		c.JSON(http.StatusBadRequest, app.WithError(app.PARAMETERS_REQUIRED, "Provide parameters"))
+		return
+	}
+
+	threads, err := di.MessagesDatabase.GetThreads(in.UserId)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, app.WithError(app.DB_ERROR, "DB Error while getting messages"))
+		return
+	}
+
+	if threads == nil {
+		threads = make([]domain.Thread, 0)
+	}
+
+	c.JSON(http.StatusOK, app.ThreadsResponse{
+		Response: app.WithSuccess("Found"),
+		Threads:  threads,
+	})
+
+	return
+}
+
 // Получение всех семестров
 func GetMessages(c *gin.Context, di di.DI) {
 	in := input.GetMessages{}

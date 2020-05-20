@@ -1,9 +1,14 @@
 package input
 
-// Отправка сообщения
+// Получение сообщений
 type GetMessages struct {
 	ReceiverId int `form:"receiverId" binding:"required"`
 	SenderId   int `form:"senderId" binding:"required"`
+}
+
+// Получение чатов
+type GetThreads struct {
+	UserId int `form:"userId" binding:"required"`
 }
 
 // Создание сообщения
